@@ -6,7 +6,40 @@
              xmlns:local="clr-namespace:DIRS_Ketering.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock>Admin panel</TextBlock>
-    </Grid>
+    <TabControl>
+        <TabItem Header="Jela">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid Grid.Column="0"
+                          ItemsSource="{Binding Jela}"
+                          SelectedItem="{Binding OdabranoJelo}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          Margin="10">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}" Width="*"/>
+                        <DataGridTextColumn Header="Opis" Binding="{Binding Opis}" Width="*"/>
+                        <DataGridTextColumn Header="Cena" Binding="{Binding Cena}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1" Margin="10">
+                    <TextBlock Text="Naziv"/>
+                    <TextBox Text="{Binding Naziv, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Opis"/>
+                    <TextBox Text="{Binding Opis, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Cena"/>
+                    <TextBox Text="{Binding Cena, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,20"/>
+
+                    <Button Content="Dodaj" Command="{Binding DodajJeloCommand}" Margin="0,0,0,5"/>
+                    
+                </StackPanel>
+
+            </Grid>
+        </TabItem>
+    </TabControl>
 </UserControl>

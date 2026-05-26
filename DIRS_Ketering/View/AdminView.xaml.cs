@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DIRS_Ketering.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,7 @@ namespace DIRS_Ketering.View
         public AdminView()
         {
             InitializeComponent();
+            DataContext = new AdminViewModel();
         }
     }
 }
