@@ -1,4 +1,5 @@
 ﻿using DIRS_Ketering.Data;
+using DIRS_Ketering.Helpers;
 using DIRS_Ketering.Models;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,22 @@ namespace DIRS_Ketering.ViewModels
         private string opis;
         private decimal cena;
 
+
         public ObservableCollection<Jelo> Jela { get => jela; set => SetProperty(ref jela, value); }
         public Jelo Jelo { get => jelo; set => SetProperty(ref jelo, value); }
         public string Naziv { get => naziv; set => SetProperty(ref naziv, value); }
         public string Opis { get => opis; set => SetProperty(ref opis, value); }
         public decimal Cena { get => cena; set => SetProperty(ref cena, value); }
 
-        public ICommand DodajJeloCommand { get; }
+        public ICommand NovoJeloCommand { get; }
         public ICommand IzmeniJeloCommand { get; }
         public ICommand ObrisiJeloCommand { get; }
+
+        public AdminViewModel()
+        {
+            NovoJeloCommand = new RelayCommand(_ => novoJelo());
+            ucitajJela();
+        }
 
         public void ucitajJela()
         {

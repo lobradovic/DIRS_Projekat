@@ -35,7 +35,7 @@
                     <TextBlock Text="Cena"/>
                     <TextBox Text="{Binding Cena, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,20"/>
 
-                    <Button Content="Dodaj" Command="{Binding DodajJeloCommand}" Margin="0,0,0,5"/>
+                    <Button Content="Dodaj" Command="{Binding NovoJeloCommand}" Margin="0,0,0,5"/>
                     
                 </StackPanel>
 
