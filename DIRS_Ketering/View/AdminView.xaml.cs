@@ -1,5 +1,4 @@
-﻿using DIRS_Ketering.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -9,19 +8,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace DIRS_Ketering.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AdminView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminView : UserControl
     {
-        public MainWindow()
+        public AdminView()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }

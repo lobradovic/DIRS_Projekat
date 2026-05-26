@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid>
+            <TabControl>
+                <TabItem Header="Meni">
+                    <local:MenuView/>
+                </TabItem>
+                <TabItem Header="Admin" Visibility="{Binding AdminVisibility}">
+                    <local:AdminView/>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
 </Window>

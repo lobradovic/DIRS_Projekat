@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DIRS_Ketering.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -20,6 +21,8 @@ namespace DIRS_Ketering.View
         public RegistracijaWindow()
         {
             InitializeComponent();
+            DataContext = new RegistracijaViewModel();
+            PbLozinka.PasswordChanged += (s, e) => ((RegistracijaViewModel)DataContext).Lozinka = PbLozinka.Password;
         }
     }
 }

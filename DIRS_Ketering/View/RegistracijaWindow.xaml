@@ -20,7 +20,7 @@
 
             <TextBlock Text="{Binding Greska}" Foreground="Red" Margin="0,0,0,10"/>
             
-            <Button Content="Registruj se" Command="{Binding OtvoriRegistracijuCommand}"/>
+            <Button Content="Registruj se" Command="{Binding RegistrujCommand}"/>
         </StackPanel>
     </Grid>
 </Window>
