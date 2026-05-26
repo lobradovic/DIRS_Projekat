@@ -36,6 +36,7 @@
                     <TextBox Text="{Binding Cena, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,20"/>
 
                     <Button Content="Dodaj" Command="{Binding NovoJeloCommand}" Margin="0,0,0,5"/>
+                    <Button Content="Azuriraj" Command="{Binding AzurirajJeloCommand}" Margin="0,0,0,5"/>
                     <Button Content="Obrisi" Command="{Binding ObrisiJeloCommand}" Margin="0,0,0,5"/>
                     <Button Content="Ocisti" Command="{Binding OcistiFormuCommand}"/>
 

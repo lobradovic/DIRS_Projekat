@@ -41,12 +41,14 @@ namespace DIRS_Ketering.ViewModels
         public ICommand IzmeniJeloCommand { get; }
         public ICommand ObrisiJeloCommand { get; }
         public ICommand OcistiFormuCommand { get; }
+        public ICommand AzurirajJeloCommand { get; }
 
         public AdminViewModel()
         {
             NovoJeloCommand = new RelayCommand(_ => novoJelo());
             ObrisiJeloCommand=new RelayCommand(_ => obrisiJelo());
             OcistiFormuCommand=new RelayCommand(_ => ocistiFormu());
+            AzurirajJeloCommand=new RelayCommand(_=>azurirajJelo());
             ucitajJela();
         }
 
@@ -89,6 +91,33 @@ namespace DIRS_Ketering.ViewModels
             if (jelo == null) return;
 
             db.Jela.Remove(jelo);
+            db.SaveChanges();
+
+            ucitajJela();
+            ocistiFormu();
+
+        }
+        public void azurirajJelo()
+        {
+            if(SelektovanoJelo==null)
+            {
+                MessageBox.Show("Niste odabrali nijedno jelo!");
+                return;
+            }
+            var potvrda = MessageBox.Show(
+                $"Da li ste sigurni da zelite da azurirate {SelektovanoJelo.Naziv}?",
+                "Potvrda azuriranja",
+                MessageBoxButton.YesNo);
+
+            if (potvrda != MessageBoxResult.Yes) return;
+            using var db = new AppDbContext();
+
+            var jelo = db.Jela.Find(SelektovanoJelo.Id);
+            if (jelo == null) return;
+
+            jelo.Naziv = Naziv;
+            jelo.Opis = Opis;
+            jelo.Cena = Cena;
             db.SaveChanges();
 
             ucitajJela();
