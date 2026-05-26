@@ -52,6 +52,14 @@ namespace DIRS_Ketering.ViewModels
             db.Jela.Add(new Jelo { Naziv = Naziv, Opis = Opis, Cena = Cena });
             db.SaveChanges();
             ucitajJela();
+            ocistiFormu();
+        }
+        private void ocistiFormu()
+        {
+            Jelo = null;
+            Naziv = string.Empty;
+            Opis = string.Empty;
+            Cena = 0;
         }
 
     }
