@@ -1,5 +1,5 @@
-﻿using DIRS_Ketering.Models;
-using FoodOrderApp.Data;
+﻿using DIRS_Ketering.Data;
+using DIRS_Ketering.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,7 +24,8 @@ namespace DIRS_Ketering.Service
         {
             using var db=new AppDbContext();
             Korisnik korisnik=new Korisnik();
-            if(ime!="" && email!="" && password!="")
+            if (string.IsNullOrEmpty(ime) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password)) return;
+            else
             {
                 korisnik.Ime = ime;
                 korisnik.Email = email;

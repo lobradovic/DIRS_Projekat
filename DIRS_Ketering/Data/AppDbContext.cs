@@ -1,7 +1,7 @@
 ﻿using DIRS_Ketering.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodOrderApp.Data;
+namespace DIRS_Ketering.Data;
 
 public class AppDbContext : DbContext
 {
@@ -11,7 +11,10 @@ public class AppDbContext : DbContext
     public DbSet<Stavka> Stavke { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite("Data Source=ketering.db");
+    {
+        var path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ketering.db");
+        options.UseSqlite($"Data Source={path}");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
