@@ -13,14 +13,26 @@ namespace DIRS_Ketering.ViewModels
     public class AdminViewModel:BaseViewModel
     {
         private ObservableCollection<Jelo> jela;
-        private Jelo jelo;
+        private Jelo selektovanoJelo;
         private string naziv;
         private string opis;
         private decimal cena;
 
 
         public ObservableCollection<Jelo> Jela { get => jela; set => SetProperty(ref jela, value); }
-        public Jelo Jelo { get => jelo; set => SetProperty(ref jelo, value); }
+        public Jelo SelektovanoJelo
+        { 
+            get => selektovanoJelo;
+            set { 
+                SetProperty(ref selektovanoJelo, value);
+                if (value != null)
+                {
+                    Naziv = value.Naziv;
+                    Opis = value.Opis;
+                    Cena = value.Cena;
+                }
+            } 
+        }
         public string Naziv { get => naziv; set => SetProperty(ref naziv, value); }
         public string Opis { get => opis; set => SetProperty(ref opis, value); }
         public decimal Cena { get => cena; set => SetProperty(ref cena, value); }
@@ -28,10 +40,13 @@ namespace DIRS_Ketering.ViewModels
         public ICommand NovoJeloCommand { get; }
         public ICommand IzmeniJeloCommand { get; }
         public ICommand ObrisiJeloCommand { get; }
+        public ICommand OcistiFormuCommand { get; }
 
         public AdminViewModel()
         {
             NovoJeloCommand = new RelayCommand(_ => novoJelo());
+            ObrisiJeloCommand=new RelayCommand(_ => obrisiJelo());
+            OcistiFormuCommand=new RelayCommand(_ => ocistiFormu());
             ucitajJela();
         }
 
@@ -54,9 +69,35 @@ namespace DIRS_Ketering.ViewModels
             ucitajJela();
             ocistiFormu();
         }
+
+        public void obrisiJelo()
+        {
+            if(SelektovanoJelo==null)
+            {
+                MessageBox.Show("Niste odabrali nijedno jelo!");
+                return;
+            }
+            var potvrda = MessageBox.Show(
+                            $"Da li ste sigurni da zelite da obrisete {SelektovanoJelo.Naziv}?",
+                            "Potvrda brisanja",
+                            MessageBoxButton.YesNo);
+
+            if (potvrda != MessageBoxResult.Yes) return;
+
+            using var db = new AppDbContext();
+            var jelo = db.Jela.Find(SelektovanoJelo.Id);
+            if (jelo == null) return;
+
+            db.Jela.Remove(jelo);
+            db.SaveChanges();
+
+            ucitajJela();
+            ocistiFormu();
+
+        }
         private void ocistiFormu()
         {
-            Jelo = null;
+            SelektovanoJelo = null;
             Naziv = string.Empty;
             Opis = string.Empty;
             Cena = 0;

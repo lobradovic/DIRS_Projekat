@@ -22,7 +22,6 @@ namespace DIRS_Ketering.View
         public AdminView()
         {
             InitializeComponent();
-            DataContext = new AdminViewModel();
         }
     }
 }

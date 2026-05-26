@@ -13,7 +13,7 @@
                     <local:MenuView/>
                 </TabItem>
                 <TabItem Header="Admin" Visibility="{Binding AdminVisibility}">
-                    <local:AdminView/>
+                    <local:AdminView DataContext="{Binding AdminViewModel}"/>
                 </TabItem>
             </TabControl>
         </Grid>
