@@ -95,15 +95,19 @@
         <TabItem Header="Pomocni panel">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
                     <Button Content="Izvezi kao JSON" Command="{Binding ExportDb}" Width="150" Height="20" Margin="0,100,0,20"></Button>
                     <Button Content="Generisi PDF izvestaj" Command="{Binding ExportPDFCommand}" Width="150" Height="20"></Button>
                 </StackPanel>
-                <StackPanel Grid.Column="1">
-
+                <StackPanel Grid.Column="1" Background="LightGray">
+                    <TextBlock HorizontalAlignment="Center" FontSize="18" Text="Dobrodosli na administratorski panel!" FontWeight="Bold" Margin="0,0,0,60"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="14" Text="Panel se sastoji od tri taba: Jela, Prikaz rezervacija i Pomocni panel"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="14" Text="Na panelu Jela mozete vrsiti upravljanje aktuelnim jelovnikom"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="14" Text="Na panelu prikaz rezervacija mozete videti sve rezervacije i po potrebi menjati njihov status"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="14" Text="Na pomocnom panelu mozete odabrati polja za generisanje PDF izvestaja ili izvoz JSON datoteke"></TextBlock>
                 </StackPanel>
             </Grid>
         </TabItem>
