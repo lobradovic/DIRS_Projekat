@@ -10,7 +10,13 @@
         <Grid>
             <TabControl>
                 <TabItem Header="Meni">
-                    <local:MenuView/>
+                    <local:MenuView DataContext="{Binding MenuViewModel}"/>
+                </TabItem>
+                <TabItem Header="Korpa">
+                    <local:KorpaView DataContext="{Binding KorpaViewModel}"/>
+                </TabItem>
+                <TabItem Header="Moje rezervacije">
+                    <local:PorudzbineView DataContext="{Binding PorudzbinaViewModel}"/>
                 </TabItem>
                 <TabItem Header="Admin" Visibility="{Binding AdminVisibility}">
                     <local:AdminView DataContext="{Binding AdminViewModel}"/>

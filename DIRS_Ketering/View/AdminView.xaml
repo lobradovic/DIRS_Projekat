@@ -44,5 +44,68 @@
 
             </Grid>
         </TabItem>
+        <TabItem Header="Prikaz rezervacija">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid Grid.Column="0"
+              ItemsSource="{Binding Porudzbine}"
+              SelectedItem="{Binding SelektovanaPorudzbina}"
+              AutoGenerateColumns="False"
+              IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                        <DataGridTextColumn Header="Datum kreiranja" Binding="{Binding VremeKreiranja, StringFormat='{}{0:dd.MM.yyyy}'}" Width="130"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Grid.Column="1" Margin="10">
+                    <TextBlock Text="Detalji rezervacije" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Datum isporuke"/>
+                    <TextBlock Text="{Binding SelektovanaPorudzbina.DatumIsporuke, StringFormat='{}{0:dd.MM.yyyy}'}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Adresa isporuke"/>
+                    <TextBlock Text="{Binding SelektovanaPorudzbina.AdresaIsporuke}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Status"/>
+                    <ComboBox ItemsSource="{Binding Statusi}" SelectedItem="{Binding SelektovaniStatus}" Margin="0,0,0,20"/>
+
+                    <TextBlock Text="Stavke" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <ScrollViewer Height="80" VerticalScrollBarVisibility="Auto">
+                        <ListBox ItemsSource="{Binding SelektovanaPorudzbina.Stavke}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Jelo.Naziv}" Margin="0,0,10,0"/>
+                                        <TextBlock Text="{Binding Kolicina, StringFormat='x{0}'}"/>
+                                        <TextBlock Text="{Binding TrenutnaCena, StringFormat=' - {0} RSD'}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                    <Button Content="Azuriraj" Command="{Binding PromeniStatusCommand}" Margin="0,20,0,0"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Pomocni panel">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Button Content="Izvezi kao JSON" Command="{Binding ExportDb}" Width="150" Height="20" Margin="0,100,0,20"></Button>
+                    <Button Content="Generisi PDF izvestaj" Command="{Binding ExportPDFCommand}" Width="150" Height="20"></Button>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+
+                </StackPanel>
+            </Grid>
+        </TabItem>
     </TabControl>
 </UserControl>

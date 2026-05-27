@@ -15,5 +15,8 @@ namespace DIRS_Ketering.Models
         public ICollection<Stavka> Stavke { get; set; } = new List<Stavka>();
 
         public decimal Ukupno => Stavke.Sum(s => s.TrenutnaCena * s.Kolicina);
+
+        public string AdresaIsporuke { get; set; }
+        public DateTime DatumIsporuke { get; set; }
     }
 }

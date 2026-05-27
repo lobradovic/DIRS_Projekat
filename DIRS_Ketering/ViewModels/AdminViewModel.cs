@@ -1,6 +1,8 @@
 ﻿using DIRS_Ketering.Data;
 using DIRS_Ketering.Helpers;
 using DIRS_Ketering.Models;
+using DIRS_Ketering.Service;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,15 +44,6 @@ namespace DIRS_Ketering.ViewModels
         public ICommand ObrisiJeloCommand { get; }
         public ICommand OcistiFormuCommand { get; }
         public ICommand AzurirajJeloCommand { get; }
-
-        public AdminViewModel()
-        {
-            NovoJeloCommand = new RelayCommand(_ => novoJelo());
-            ObrisiJeloCommand=new RelayCommand(_ => obrisiJelo());
-            OcistiFormuCommand=new RelayCommand(_ => ocistiFormu());
-            AzurirajJeloCommand=new RelayCommand(_=>azurirajJelo());
-            ucitajJela();
-        }
 
         public void ucitajJela()
         {
@@ -130,6 +123,62 @@ namespace DIRS_Ketering.ViewModels
             Naziv = string.Empty;
             Opis = string.Empty;
             Cena = 0;
+        }
+
+        public ObservableCollection<Porudzbina> porudzbine;
+        public Porudzbina selektovanaPorudzbina;
+
+        public ObservableCollection<Porudzbina> Porudzbine
+        {
+            get => porudzbine;
+            set=>SetProperty(ref porudzbine,value);
+        }
+        public Porudzbina SelektovanaPorudzbina
+        {
+            get => selektovanaPorudzbina;
+            set=>SetProperty(ref selektovanaPorudzbina,value);
+        }
+
+        private void prikaziRezervacijeAdmin()
+        {
+            using var db = new AppDbContext();
+          
+            Porudzbine = new ObservableCollection<Porudzbina>(
+                db.Porudzbine.Include(p => p.Stavke).ThenInclude(s => s.Jelo).ToList()
+            );
+        }
+        public Status SelektovaniStatus { get; set; }
+        public Array Statusi => Enum.GetValues(typeof(Status));
+        private void promeniStatus()
+        {
+            if (SelektovanaPorudzbina == null) return;
+
+            using var db = new AppDbContext();
+            var por = db.Porudzbine.Find(SelektovanaPorudzbina.Id);
+            if (por == null) return;
+            por.Status = SelektovaniStatus;
+            db.SaveChanges();
+            prikaziRezervacijeAdmin();
+        }
+        public ICommand PromeniStatusCommand { get; }
+
+
+        DbJsonExport dbJson=new DbJsonExport();
+        public ICommand ExportDb { get; }
+
+        PDFService pdfService = new PDFService();
+        public ICommand ExportPDFCommand { get; }
+        public AdminViewModel()
+        {
+            NovoJeloCommand = new RelayCommand(_ => novoJelo());
+            ObrisiJeloCommand = new RelayCommand(_ => obrisiJelo());
+            OcistiFormuCommand = new RelayCommand(_ => ocistiFormu());
+            AzurirajJeloCommand = new RelayCommand(_ => azurirajJelo());
+            PromeniStatusCommand= new RelayCommand(_ => promeniStatus());
+            ExportPDFCommand=new RelayCommand(_=>pdfService.exportPDF());
+            ExportDb = new RelayCommand(_ => dbJson.Export());
+            prikaziRezervacijeAdmin();
+            ucitajJela();
         }
 
     }
