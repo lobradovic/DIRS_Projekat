@@ -1,4 +1,5 @@
-﻿using DIRS_Ketering.Helpers;
+﻿using DIRS_Ketering.Data;
+using DIRS_Ketering.Helpers;
 using DIRS_Ketering.Service;
 using System.Windows;
 using System.Windows.Input;
@@ -51,6 +52,14 @@ namespace DIRS_Ketering.ViewModels
             if (string.IsNullOrEmpty(Ime) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Lozinka))
             {
                 Greska = "Sva polja su obavezna.";
+                return;
+            }
+
+            using var db = new AppDbContext();
+            var postojeci=db.Korisnici.FirstOrDefault(k=>k.Email== Email);
+            if(postojeci!=null)
+            {
+                MessageBox.Show("Postoji korisnik sa unetom email adresom");
                 return;
             }
 
