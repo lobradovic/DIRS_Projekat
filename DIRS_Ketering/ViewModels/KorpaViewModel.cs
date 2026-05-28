@@ -57,6 +57,10 @@ namespace DIRS_Ketering.ViewModels
             PotvrdiCommand = new RelayCommand(_ => potvrdiNarudzbinu());
             ObrisiCommand = new RelayCommand(_ => obrisiStavku());
         }
+        public static void ResetInstance()
+        {
+            _instance = null;
+        }
 
         public void dodajStavku(Jelo jelo)
         {
